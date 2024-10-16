@@ -1,0 +1,33 @@
+CREATE DATABASE auth;
+USE auth;
+
+CREATE TABLE users(
+id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(50) UNIQUE NOT NULL, 
+password VARCHAR(500) NOT NULL,
+email VARCHAR(500) UNIQUE NOT NULL,
+refresh_token VARCHAR(500)
+);
+
+SELECT * FROM users; 
+
+CREATE TABLE users_logs(
+id INT AUTO_INCREMENT PRIMARY KEY, 
+user_id INT,
+action VARCHAR(50),
+timestamp DATETIME,
+FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+SELECT * FROM users_logs;
+
+DROP TRIGGER IF EXISTS
+log_users_registration; 
+
+DELIMITER //
+CREATE TRIGGER log_users_registration AFTER INSERT ON users 
+FOR EACH ROW
+BEGIN
+INSERT INTO users_logs (user_id, action, timestamp) VALUES (NEW.id, 'registered', NOW());
+END;
+//

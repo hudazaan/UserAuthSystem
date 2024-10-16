@@ -1,0 +1,32 @@
+- **POST /register**: Register a new user.
+  - **Request Body**:
+    ```json
+    {
+      "username": "peter_park",
+      "password": "your_password",
+      "email": "peter@example.com"
+    }
+    ```
+
+- **POST /login**: Log in and receive a JWT.
+  - **Request Body**:
+    ```json
+    {
+      "username": "peter_park",
+      "password": "your_password"
+    }
+    ```
+
+- **POST /token**: get accessToken from refreshToken.
+  - **Request Body**:
+    ```json
+    {
+      "refreshToken": "your_generated_refresh_token"
+    }
+    ```
+
+- **GET /profile**: profile authorization from token headers.
+  - **Key-Value Headers**:
+    ```Authorization Bearer your_generated_refresh_token
+    ```
+
